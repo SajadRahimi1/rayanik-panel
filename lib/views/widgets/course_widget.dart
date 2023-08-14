@@ -5,14 +5,15 @@ class CourseWidget extends StatelessWidget {
   const CourseWidget({
     Key? key,
     required this.title,
-    required this.description,
+    required this.weeks,
   }) : super(key: key);
-  final String title, description;
+  final String title;
+  final int weeks;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 3,
+      elevation: 5,
       child: Container(
         margin: const EdgeInsets.only(left: 5),
         width: MediaQuery.of(context).size.width,
@@ -26,12 +27,14 @@ class CourseWidget extends StatelessWidget {
             // image
             Expanded(
                 child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)),
               child: Image.network(
                 "https://toplearn.com/img/course/%D8%A2%D9%85%D9%88%D8%B2%D8%B4_%D9%87%D9%88%D8%B4_%D9%85%D8%B5%D9%86%D9%88%D8%B9%DB%8C_%D8%AF%D8%B1_%D8%A7%D9%84%D9%85%D9%86%D8%AA%D9%88%D8%B1.jpg",
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             )),
             // titles
@@ -46,20 +49,28 @@ class CourseWidget extends StatelessWidget {
                         Text(
                           title,
                           style: TextStyle(
-                              fontSize:
-                                  17 * MediaQuery.of(context).textScaleFactor,
-                              fontWeight: FontWeight.bold,
-                              color: const Color(0xff414865)),
+                            fontSize:
+                                17 * MediaQuery.of(context).textScaleFactor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         // second text
-                        Text(
-                          description,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize:
-                                  15 * MediaQuery.of(context).textScaleFactor,
-                              color: const Color(0xff414865)),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              color: cyan,
+                            ),
+                            Text(
+                              "\t$weeks هفته",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize:
+                                    15 * MediaQuery.of(context).textScaleFactor,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ))),
