@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
+import 'package:rayanik_panel/views/screens/screens_template.dart';
 import 'package:rayanik_panel/views/widgets/menu.dart';
 
 class VideoScreen extends StatelessWidget {
@@ -8,30 +9,9 @@ class VideoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Menu(
+    return ScreensTemplate(
       selectedItem: 0,
-      home: Column(
-        children: [
-          Container(
-            width: Get.width,
-            height: Get.height / 10.4,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-                border:
-                    BorderDirectional(bottom: BorderSide(color: Colors.black))),
-            child: Text(
-              "آموزش های ویدیویی",
-              style: TextStyle(
-                  fontSize: 26 * MediaQuery.of(context).textScaleFactor,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-              child: Container(
-            color: lightBlue,
-          ))
-        ],
-      ),
+      title: "آموزش های ویدیویی",
     );
   }
 }
