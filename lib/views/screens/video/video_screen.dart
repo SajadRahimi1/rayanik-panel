@@ -12,8 +12,18 @@ class VideoScreen extends StatelessWidget {
     return ScreensTemplate(
       selectedItem: 0,
       title: "آموزش های ویدیویی",
+      titleWidget: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8), color: darkBlue),
+        padding: const EdgeInsets.all(8),
+        margin: EdgeInsets.only(right: 13),
+        child: const Text(
+          "آموزش جدید",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       child: Padding(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             children: [
@@ -36,6 +46,9 @@ class VideoScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8))),
                   )),
             ],
+          ),
+          const SizedBox(
+            height: 10,
           ),
           Expanded(
             child: GridView.custom(

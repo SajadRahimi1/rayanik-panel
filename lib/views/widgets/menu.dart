@@ -31,11 +31,10 @@ class Menu extends StatelessWidget {
                   child: InkWell(
                     onTap: () => selectedItem == -1
                         ? {}
-                        : Navigator.push(
+                        : Navigator.pushNamedAndRemoveUntil(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainScreen(),
-                            )),
+                            '/',
+                            (route) => false),
                     child: Text(
                       "پنل ادمین رایانیک",
                       style: TextStyle(
@@ -54,11 +53,10 @@ class Menu extends StatelessWidget {
                         ListTile(
                             onTap: () => selectedItem == 0
                                 ? {}
-                                : Navigator.push(
+                                : Navigator.pushNamedAndRemoveUntil(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const VideoScreen(),
-                                    )),
+                                    '/courses',
+                                    (route) => false),
                             title: Text("آموزش ویدیویی",
                                 style: TextStyle(
                                     fontSize: 20 *
@@ -72,11 +70,8 @@ class Menu extends StatelessWidget {
                         ListTile(
                             onTap: () => selectedItem == 1
                                 ? {}
-                                : Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const UsersScreen(),
-                                    )),
+                                : Navigator.pushNamedAndRemoveUntil(
+                                    context, '/users', (route) => false),
                             title: Text("مدیریت کاربران",
                                 style: TextStyle(
                                     fontSize: 20 *

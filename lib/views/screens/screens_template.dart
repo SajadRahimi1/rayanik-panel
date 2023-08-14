@@ -4,9 +4,13 @@ import 'package:rayanik_panel/views/widgets/menu.dart';
 
 class ScreensTemplate extends StatelessWidget {
   const ScreensTemplate(
-      {super.key, required this.selectedItem, required this.title, this.child});
+      {super.key,
+      required this.selectedItem,
+      required this.title,
+      this.child,
+      this.titleWidget});
   final int selectedItem;
-  final Widget? child;
+  final Widget? child, titleWidget;
   final String title;
 
   @override
@@ -22,11 +26,17 @@ class ScreensTemplate extends StatelessWidget {
             decoration: const BoxDecoration(
                 border:
                     BorderDirectional(bottom: BorderSide(color: Colors.black))),
-            child: Text(
-              title,
-              style: TextStyle(
-                  fontSize: 26 * MediaQuery.of(context).textScaleFactor,
-                  fontWeight: FontWeight.bold),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 26 * MediaQuery.of(context).textScaleFactor,
+                      fontWeight: FontWeight.bold),
+                ),
+                titleWidget ?? const SizedBox()
+              ],
             ),
           ),
           Expanded(
