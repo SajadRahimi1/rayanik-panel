@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
 import 'package:rayanik_panel/views/screens/main_screen.dart';
+import 'package:rayanik_panel/views/screens/users/users_screen.dart';
 import 'package:rayanik_panel/views/screens/video/video_screen.dart';
 
 class Menu extends StatelessWidget {
@@ -60,11 +61,8 @@ class Menu extends StatelessWidget {
                                     )),
                             title: Text("آموزش ویدیویی",
                                 style: TextStyle(
-                                    fontSize: selectedItem == 0
-                                        ? 24
-                                        : 20 *
-                                            MediaQuery.of(context)
-                                                .textScaleFactor,
+                                    fontSize: 20 *
+                                        MediaQuery.of(context).textScaleFactor,
                                     color: selectedItem == 0
                                         ? cyan
                                         : Colors.white))),
@@ -72,11 +70,20 @@ class Menu extends StatelessWidget {
                           height: Get.height / 35,
                         ),
                         ListTile(
+                            onTap: () => selectedItem == 1
+                                ? {}
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const UsersScreen(),
+                                    )),
                             title: Text("مدیریت کاربران",
                                 style: TextStyle(
                                     fontSize: 20 *
                                         MediaQuery.of(context).textScaleFactor,
-                                    color: Colors.white))),
+                                    color: selectedItem == 1
+                                        ? cyan
+                                        : Colors.white))),
                         SizedBox(
                           height: Get.height / 35,
                         ),

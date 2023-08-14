@@ -3,7 +3,8 @@ import 'package:rayanik_panel/core/constants/colors.dart';
 import 'package:rayanik_panel/views/widgets/menu.dart';
 
 class ScreensTemplate extends StatelessWidget {
-  const ScreensTemplate({super.key,required this.selectedItem,required this.title,this.child });
+  const ScreensTemplate(
+      {super.key, required this.selectedItem, required this.title, this.child});
   final int selectedItem;
   final Widget? child;
   final String title;
@@ -30,6 +31,8 @@ class ScreensTemplate extends StatelessWidget {
           ),
           Expanded(
               child: Container(
+            width: MediaQuery.sizeOf(context).width,
+            height: MediaQuery.sizeOf(context).height,
             color: lightBlue,
             child: child,
           ))
