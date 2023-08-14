@@ -57,7 +57,7 @@ class CourseWidget extends StatelessWidget {
                         // second text
                         Row(
                           children: [
-                            Icon(
+                          const  Icon(
                               Icons.access_time,
                               color: cyan,
                             ),

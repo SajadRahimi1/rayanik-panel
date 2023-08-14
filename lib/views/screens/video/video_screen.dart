@@ -239,7 +239,7 @@ class VideoScreen extends StatelessWidget {
                     mainAxisSpacing: 15,
                     crossAxisCount: Get.width ~/ 300),
                 childrenDelegate: SliverChildListDelegate(List.generate(25,
-                    (index) => CourseWidget(title: "دوره المنتور", weeks: 3)))),
+                    (index) => const CourseWidget(title: "دوره المنتور", weeks: 3)))),
           )
         ]),
       ),
