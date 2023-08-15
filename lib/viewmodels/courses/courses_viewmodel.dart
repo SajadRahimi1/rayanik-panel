@@ -67,6 +67,7 @@ class CoursesViewModel extends GetxController with StateMixin {
         .pickFiles(allowCompression: true, type: FileType.image);
 
     if (result != null) {
+      createCourseModel.filename = result.files.first.name;
       imageBytes.value = result.files.first.bytes ?? Uint8List(0);
     } else {
       // User canceled the picker

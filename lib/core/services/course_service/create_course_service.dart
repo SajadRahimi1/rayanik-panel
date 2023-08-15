@@ -4,7 +4,7 @@ import 'package:rayanik_panel/models/create_course_model.dart';
 
 
 final Dio dio =
-    Dio(BaseOptions(receiveTimeout: Duration(seconds: 12), headers: {
+    Dio(BaseOptions(receiveTimeout:const Duration(seconds: 12), headers: {
   "Access-Control-Allow-Origin": "*",
   'Accept': '*/*',
   "Access-Control-Allow-Credentials":

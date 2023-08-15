@@ -230,6 +230,7 @@ class VideoScreen extends StatelessWidget {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisSpacing: Get.width / 35,
                           mainAxisSpacing: 15,
+                          childAspectRatio: 0.9,
                           crossAxisCount: Get.width ~/ 300),
                       childrenDelegate: SliverChildListDelegate(List.generate(
                           controller.courseModel.length,
