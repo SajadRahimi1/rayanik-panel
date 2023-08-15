@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:rayanik_panel/views/screens/main_screen.dart';
 import 'package:rayanik_panel/views/screens/users/users_screen.dart';
 import 'package:rayanik_panel/views/screens/video/video_screen.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MainApp());
 }
 
@@ -27,5 +30,14 @@ class MainApp extends StatelessWidget {
           textDirection: TextDirection.rtl, child: child ?? const SizedBox()),
       // home: const MainScreen());
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

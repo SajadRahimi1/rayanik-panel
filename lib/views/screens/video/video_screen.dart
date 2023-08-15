@@ -132,19 +132,7 @@ class VideoScreen extends StatelessWidget {
                             ),
 
                             InkWell(
-                              onTap: () async {
-                                FilePickerResult? result =
-                                    await FilePicker.platform.pickFiles(
-                                        allowCompression: true,
-                                        type: FileType.image);
-
-                                if (result != null) {
-                                  _controller.imageBytes.value =
-                                      result.files.first.bytes ?? Uint8List(0);
-                                } else {
-                                  // User canceled the picker
-                                }
-                              },
+                              onTap: _controller.pickImage,
                               child: Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
@@ -188,7 +176,7 @@ class VideoScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: darkBlue),
-                                child:const Text(
+                                child: const Text(
                                   "ثبت دوره جدید",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 18),
