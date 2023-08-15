@@ -211,6 +211,7 @@ class VideoScreen extends StatelessWidget {
                   height: Get.height / 25,
                   child: TextFormField(
                     textAlignVertical: TextAlignVertical.bottom,
+                    onChanged: (value) => controller.search(value),
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
                         hintText: "جست و جو کنید",

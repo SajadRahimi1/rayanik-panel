@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -15,6 +17,7 @@ class CoursesViewModel extends GetxController with StateMixin {
   CoursesViewModel({required this.context});
   final BuildContext context;
   final CreateCourseModel createCourseModel = CreateCourseModel();
+  List<CourseModel> baseCourseModel = [];
   List<CourseModel> courseModel = [];
   RxInt categoryIndex = 0.obs;
   RxInt weeksCount = 1.obs;
@@ -30,8 +33,9 @@ class CoursesViewModel extends GetxController with StateMixin {
   Future<void> getCourses() async {
     try {
       final request = await service.getCourses();
-      courseModel = List<CourseModel>.from(
+      baseCourseModel = List<CourseModel>.from(
           request.body.map((x) => CourseModel.fromJson(x)));
+      courseModel = baseCourseModel;
       change(null, status: RxStatus.success());
     } on DioException {
       networkErrorMessage(context);
@@ -53,6 +57,8 @@ class CoursesViewModel extends GetxController with StateMixin {
               context: context,
               message: "دوره با موفقیت ایجاد شد",
               type: MessageType.success);
+          change(null, status: RxStatus.loading());
+          await getCourses();
         } else {
           // networkErrorMessage();
         }
@@ -74,12 +80,18 @@ class CoursesViewModel extends GetxController with StateMixin {
     }
   }
 
-  // Future<void> testConnect() async {
-  //   final request = await getConnect.get(getCoursesUrl, headers: {
-  //     "Access-Control-Allow-Origin": "*",
-  //   });
-  //   showMessage(context: context, message: request.body.toString());
-  // }
+  void search(String title) {
+    change(null, status: RxStatus.loading());
+    courseModel = [];
+    if (title.isEmpty) {
+      courseModel = baseCourseModel;
+    } else {
+      courseModel = baseCourseModel
+          .where((element) => element.title?.contains(title) ?? false)
+          .toList();
+    }
+    change(null, status: RxStatus.success());
+  }
 
   bool validateCreateCourse() {
     createCourseModel.image = imageBytes.value;
