@@ -3,6 +3,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
+import 'package:rayanik_panel/core/services/message_service.dart';
+import 'package:rayanik_panel/viewmodels/courses/courses_viewmodel.dart';
 import 'package:rayanik_panel/views/screens/screens_template.dart';
 import 'package:rayanik_panel/views/widgets/course_widget.dart';
 
@@ -11,9 +13,8 @@ class VideoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RxInt _categoryIndex = 0.obs;
-    RxInt _weeksCount = 1.obs;
-    Rx<Uint8List> imageBytes = Uint8List(0).obs;
+    final _controller = Get.put(CoursesViewModel(context: context));
+
     return ScreensTemplate(
       selectedItem: 0,
       title: "آموزش های ویدیویی",
@@ -40,6 +41,8 @@ class VideoScreen extends StatelessWidget {
                               child: TextFormField(
                                 decoration:
                                     const InputDecoration(labelText: "عنوان"),
+                                onChanged: (value) =>
+                                    _controller.createCourseModel.title = value,
                               ),
                             ),
                             SizedBox(
@@ -50,6 +53,8 @@ class VideoScreen extends StatelessWidget {
                             SizedBox(
                               width: Get.width / 6,
                               child: TextFormField(
+                                onChanged: (value) =>
+                                    _controller.createCourseModel.price = value,
                                 decoration: const InputDecoration(
                                     labelText: "قیمت (تومان)"),
                               ),
@@ -70,7 +75,7 @@ class VideoScreen extends StatelessWidget {
                                   width: Get.width / 35,
                                 ),
                                 Obx(() => DropdownButton<int>(
-                                    value: _categoryIndex.value,
+                                    value: _controller.categoryIndex.value,
                                     style: TextStyle(
                                         fontSize: 19 *
                                             MediaQuery.of(context)
@@ -86,8 +91,8 @@ class VideoScreen extends StatelessWidget {
                                                 "طراحی"
                                               ][index]),
                                             )),
-                                    onChanged: (value) =>
-                                        _categoryIndex.value = value ?? 0))
+                                    onChanged: (value) => _controller
+                                        .categoryIndex.value = value ?? 0))
                               ],
                             ),
                             SizedBox(
@@ -110,7 +115,7 @@ class VideoScreen extends StatelessWidget {
                                         fontSize: 19 *
                                             MediaQuery.of(context)
                                                 .textScaleFactor),
-                                    value: _weeksCount.value,
+                                    value: _controller.weeksCount.value,
                                     items: List.generate(
                                         5,
                                         (index) => DropdownMenuItem(
@@ -118,8 +123,8 @@ class VideoScreen extends StatelessWidget {
                                               child:
                                                   Text((index + 1).toString()),
                                             )),
-                                    onChanged: (value) =>
-                                        _weeksCount.value = value ?? 0))
+                                    onChanged: (value) => _controller
+                                        .weeksCount.value = value ?? 0))
                               ],
                             ),
                             SizedBox(
@@ -134,7 +139,7 @@ class VideoScreen extends StatelessWidget {
                                         type: FileType.image);
 
                                 if (result != null) {
-                                  imageBytes.value =
+                                  _controller.imageBytes.value =
                                       result.files.first.bytes ?? Uint8List(0);
                                 } else {
                                   // User canceled the picker
@@ -161,11 +166,12 @@ class VideoScreen extends StatelessWidget {
                             SizedBox.square(
                               dimension: Get.width / 7,
                               child: Center(
-                                child: Obx(() => imageBytes.value.isEmpty
-                                    ? const SizedBox()
-                                    : Image.memory(
-                                        imageBytes.value,
-                                      )),
+                                child: Obx(
+                                    () => _controller.imageBytes.value.isEmpty
+                                        ? const SizedBox()
+                                        : Image.memory(
+                                            _controller.imageBytes.value,
+                                          )),
                               ),
                             ),
                             SizedBox(
@@ -173,19 +179,20 @@ class VideoScreen extends StatelessWidget {
                             ),
 
                             // upload button
-                            Container(
-                              // padding: EdgeInsets.symmetric(vertical: 10),
-
-                              width: Get.width,
-                              height: Get.height / 18,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: darkBlue),
-                              child: Text(
-                                "ثبت دوره جدید",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                            InkWell(
+                              onTap: _controller.addCourse,
+                              child: Container(
+                                width: Get.width,
+                                height: Get.height / 18,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: darkBlue),
+                                child:const Text(
+                                  "ثبت دوره جدید",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
                               ),
                             ),
                           ]),
@@ -237,8 +244,10 @@ class VideoScreen extends StatelessWidget {
                     crossAxisSpacing: Get.width / 35,
                     mainAxisSpacing: 15,
                     crossAxisCount: Get.width ~/ 300),
-                childrenDelegate: SliverChildListDelegate(List.generate(25,
-                    (index) => const CourseWidget(title: "دوره المنتور", weeks: 3)))),
+                childrenDelegate: SliverChildListDelegate(List.generate(
+                    25,
+                    (index) =>
+                        const CourseWidget(title: "دوره المنتور", weeks: 3)))),
           )
         ]),
       ),

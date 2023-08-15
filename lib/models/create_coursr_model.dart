@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-
+import 'package:uuid/uuid.dart';
 import 'package:dio/dio.dart';
 
 class CreateCourseModel {
@@ -8,10 +8,11 @@ class CreateCourseModel {
   Uint8List? image;
 
   Map<String, dynamic> toJson() => {
-    'title':title,
-    'price':price,
-    'weeksCount':weeksCount,
-    'category':category,
-    'images':MultipartFile.fromBytes(image?.toList()??[],filename: '')
-  };
+        'title': title,
+        'price': price,
+        'weeksCount': weeksCount,
+        'category': category,
+        'images': MultipartFile.fromBytes(image?.toList() ?? [],
+            filename: const Uuid().v4())
+      };
 }
