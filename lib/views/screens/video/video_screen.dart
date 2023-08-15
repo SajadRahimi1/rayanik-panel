@@ -1,19 +1,17 @@
-import 'dart:typed_data';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
-import 'package:rayanik_panel/core/services/message_service.dart';
 import 'package:rayanik_panel/viewmodels/courses/courses_viewmodel.dart';
 import 'package:rayanik_panel/views/screens/screens_template.dart';
 import 'package:rayanik_panel/views/widgets/course_widget.dart';
+import 'package:rayanik_panel/views/widgets/loading_widget.dart';
 
 class VideoScreen extends StatelessWidget {
   const VideoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final _controller = Get.put(CoursesViewModel(context: context));
+    final controller = Get.put(CoursesViewModel(context: context));
 
     return ScreensTemplate(
       selectedItem: 0,
@@ -42,7 +40,7 @@ class VideoScreen extends StatelessWidget {
                                 decoration:
                                     const InputDecoration(labelText: "عنوان"),
                                 onChanged: (value) =>
-                                    _controller.createCourseModel.title = value,
+                                    controller.createCourseModel.title = value,
                               ),
                             ),
                             SizedBox(
@@ -54,7 +52,7 @@ class VideoScreen extends StatelessWidget {
                               width: Get.width / 6,
                               child: TextFormField(
                                 onChanged: (value) =>
-                                    _controller.createCourseModel.price = value,
+                                    controller.createCourseModel.price = value,
                                 decoration: const InputDecoration(
                                     labelText: "قیمت (تومان)"),
                               ),
@@ -75,7 +73,7 @@ class VideoScreen extends StatelessWidget {
                                   width: Get.width / 35,
                                 ),
                                 Obx(() => DropdownButton<int>(
-                                    value: _controller.categoryIndex.value,
+                                    value: controller.categoryIndex.value,
                                     style: TextStyle(
                                         fontSize: 19 *
                                             MediaQuery.of(context)
@@ -91,7 +89,7 @@ class VideoScreen extends StatelessWidget {
                                                 "طراحی"
                                               ][index]),
                                             )),
-                                    onChanged: (value) => _controller
+                                    onChanged: (value) => controller
                                         .categoryIndex.value = value ?? 0))
                               ],
                             ),
@@ -115,7 +113,7 @@ class VideoScreen extends StatelessWidget {
                                         fontSize: 19 *
                                             MediaQuery.of(context)
                                                 .textScaleFactor),
-                                    value: _controller.weeksCount.value,
+                                    value: controller.weeksCount.value,
                                     items: List.generate(
                                         5,
                                         (index) => DropdownMenuItem(
@@ -123,7 +121,7 @@ class VideoScreen extends StatelessWidget {
                                               child:
                                                   Text((index + 1).toString()),
                                             )),
-                                    onChanged: (value) => _controller
+                                    onChanged: (value) => controller
                                         .weeksCount.value = value ?? 0))
                               ],
                             ),
@@ -132,7 +130,7 @@ class VideoScreen extends StatelessWidget {
                             ),
 
                             InkWell(
-                              onTap: _controller.pickImage,
+                              onTap: controller.pickImage,
                               child: Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
@@ -155,10 +153,10 @@ class VideoScreen extends StatelessWidget {
                               dimension: Get.width / 7,
                               child: Center(
                                 child: Obx(
-                                    () => _controller.imageBytes.value.isEmpty
+                                    () => controller.imageBytes.value.isEmpty
                                         ? const SizedBox()
                                         : Image.memory(
-                                            _controller.imageBytes.value,
+                                            controller.imageBytes.value,
                                           )),
                               ),
                             ),
@@ -168,7 +166,7 @@ class VideoScreen extends StatelessWidget {
 
                             // upload button
                             InkWell(
-                              onTap: _controller.addCourse,
+                              onTap: controller.addCourse,
                               child: Container(
                                 width: Get.width,
                                 height: Get.height / 18,
@@ -226,17 +224,22 @@ class VideoScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: GridView.custom(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: Get.width / 35,
-                    mainAxisSpacing: 15,
-                    crossAxisCount: Get.width ~/ 300),
-                childrenDelegate: SliverChildListDelegate(List.generate(
-                    25,
-                    (index) =>
-                        const CourseWidget(title: "دوره المنتور", weeks: 3)))),
-          )
+          controller.obx(
+              (status) => Expanded(
+                  child: GridView.custom(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: Get.width / 35,
+                          mainAxisSpacing: 15,
+                          crossAxisCount: Get.width ~/ 300),
+                      childrenDelegate: SliverChildListDelegate(List.generate(
+                          controller.courseModel.length,
+                          (index) => CourseWidget(
+                              imageUrl:
+                                  controller.courseModel[index].imageUrl ?? "",
+                              title: controller.courseModel[index].title ?? "",
+                              weeks: controller.courseModel[index].weeksCount ??
+                                  1))))),
+              onLoading: const LoadingWidget())
         ]),
       ),
     );

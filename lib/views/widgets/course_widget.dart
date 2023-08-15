@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
+import 'package:rayanik_panel/core/constants/urls.dart';
 
 class CourseWidget extends StatelessWidget {
   const CourseWidget({
     Key? key,
     required this.title,
     required this.weeks,
+    required this.imageUrl,
   }) : super(key: key);
   final String title;
   final int weeks;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class CourseWidget extends StatelessWidget {
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10)),
               child: Image.network(
-                "https://toplearn.com/img/course/%D8%A2%D9%85%D9%88%D8%B2%D8%B4_%D9%87%D9%88%D8%B4_%D9%85%D8%B5%D9%86%D9%88%D8%B9%DB%8C_%D8%AF%D8%B1_%D8%A7%D9%84%D9%85%D9%86%D8%AA%D9%88%D8%B1.jpg",
+                '$baseUrl/uploads/$imageUrl',
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.fill,
@@ -57,7 +60,7 @@ class CourseWidget extends StatelessWidget {
                         // second text
                         Row(
                           children: [
-                          const  Icon(
+                            const Icon(
                               Icons.access_time,
                               color: cyan,
                             ),
