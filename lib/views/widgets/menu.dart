@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
-import 'package:rayanik_panel/views/screens/main_screen.dart';
-import 'package:rayanik_panel/views/screens/users/users_screen.dart';
-import 'package:rayanik_panel/views/screens/video/video_screen.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key, required this.selectedItem, this.home});
