@@ -52,18 +52,22 @@ class _LessonDialogState extends State<LessonDialog> {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: SizedBox(
-          width: MediaQuery.sizeOf(context).width / 4,
+          width: MediaQuery.sizeOf(context).width / 3.5,
           height: MediaQuery.sizeOf(context).height / 1.1,
           child: Column(children: [
             SizedBox(
-              width: MediaQuery.sizeOf(context).width / 4,
+              width: MediaQuery.sizeOf(context).width / 3.4,
               height: MediaQuery.sizeOf(context).height / 3,
               child: CustomVideoPlayer(
                   customVideoPlayerController: customVideoPlayerController),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Text(widget.description),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: SingleChildScrollView(
+                  child: Text(widget.description),
+                ),
               ),
             )
           ]),

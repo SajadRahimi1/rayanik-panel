@@ -5,6 +5,7 @@ import 'package:rayanik_panel/core/constants/urls.dart';
 import 'package:rayanik_panel/models/course_model.dart';
 import 'package:rayanik_panel/viewmodels/courses/lessons_viewmodel.dart';
 import 'package:rayanik_panel/views/screens/screens_template.dart';
+import 'package:rayanik_panel/views/widgets/create_lesson_dialog.dart';
 import 'package:rayanik_panel/views/widgets/lesson_dialog.dart';
 import 'package:rayanik_panel/views/widgets/lessons_widget.dart';
 import 'package:rayanik_panel/views/widgets/title_button.dart';
@@ -16,13 +17,16 @@ class LessonsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LessonsViewmodel(model));
-  
+
     return ScreensTemplate(
       selectedItem: 0,
       title: model.title ?? "",
       titleWidget: Row(
         children: [
-          const InkWell(child: TitleButton(text: "درس جدید")),
+          InkWell(
+              onTap: () => showDialog(
+                  context: context, builder: (context) => CreateLessonDialog()),
+              child: TitleButton(text: "درس جدید")),
           InkWell(
               onTap: () => showDialog(
                   context: context,
