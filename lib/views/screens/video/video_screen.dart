@@ -195,9 +195,9 @@ class VideoScreen extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             children: [
-              const Text(
+               Text(
                 "دوره ها",
-                style: TextStyle(fontSize: 26),
+                style: TextStyle(fontSize: 26*MediaQuery.of(context).textScaleFactor),
               ),
               const SizedBox(width: 15),
               SizedBox(

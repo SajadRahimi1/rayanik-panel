@@ -14,11 +14,15 @@ class LessonsViewmodel extends GetxController with StateMixin {
   RxInt weeksCount = 1.obs;
   Rx<Uint8List> imageBytes = Uint8List(0).obs;
 
+  List<List<Lessons>> lessonsList = [];
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     fillEditCourseModel();
+    lessonsList = List.generate(baseModel.weeksCount ?? 1, (index) => []);
+    fillLesson();
   }
 
   Future<void> pickImage() async {
@@ -38,5 +42,14 @@ class LessonsViewmodel extends GetxController with StateMixin {
     editCourseModel.price = baseModel.price;
     editCourseModel.title = baseModel.title;
     weeksCount.value = baseModel.weeksCount ?? 0;
+  }
+
+  void fillLesson() {
+    for (int i = 0; i < lessonsList.length; i++) {
+      lessonsList[i] = baseModel.lessons
+              ?.where((element) => element.weekNumber == i + 1)
+              .toList() ??
+          [];
+    }
   }
 }

@@ -5,6 +5,8 @@ import 'package:rayanik_panel/core/constants/urls.dart';
 import 'package:rayanik_panel/models/course_model.dart';
 import 'package:rayanik_panel/viewmodels/courses/lessons_viewmodel.dart';
 import 'package:rayanik_panel/views/screens/screens_template.dart';
+import 'package:rayanik_panel/views/widgets/course_widget.dart';
+import 'package:rayanik_panel/views/widgets/lessons_widget.dart';
 import 'package:rayanik_panel/views/widgets/title_button.dart';
 
 class LessonsScreen extends StatelessWidget {
@@ -20,7 +22,7 @@ class LessonsScreen extends StatelessWidget {
       title: model.title ?? "",
       titleWidget: Row(
         children: [
-          InkWell(child: TitleButton(text: "درس جدید")),
+          const InkWell(child: TitleButton(text: "درس جدید")),
           InkWell(
               onTap: () => showDialog(
                   context: context,
@@ -201,9 +203,51 @@ class LessonsScreen extends StatelessWidget {
                           ),
                         ),
                       )),
-              child:const TitleButton(text: "ویرایش دوره")),
+              child: const TitleButton(text: "ویرایش دوره")),
         ],
       ),
+      child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: ListView(
+              children: List.generate(
+                  controller.lessonsList.length,
+                  (index) => SizedBox(
+                        width: Get.width,
+                        height: Get.height / 3.2,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "هفته ${index + 1} ",
+                                style: TextStyle(
+                                    fontSize: 22 *
+                                        MediaQuery.of(context).textScaleFactor),
+                              ),
+                              Expanded(
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount:
+                                          controller.lessonsList[index].length,
+                                      itemBuilder: (_, lessonIndex) => Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            child: LessonsWidget(
+                                                title: controller
+                                                        .lessonsList[index]
+                                                            [lessonIndex]
+                                                        .title ??
+                                                    "",
+                                                imageUrl: controller
+                                                        .lessonsList[index]
+                                                            [lessonIndex]
+                                                        .imageUrl ??
+                                                    ""),
+                                          ))),
+                              SizedBox(
+                                height: Get.height / 45,
+                              )
+                            ]),
+                      )))),
     );
   }
 }

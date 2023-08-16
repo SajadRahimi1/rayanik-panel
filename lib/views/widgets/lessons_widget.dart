@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
 import 'package:rayanik_panel/core/constants/urls.dart';
 
-class CourseWidget extends StatelessWidget {
-  const CourseWidget({
-    Key? key,
-    required this.title,
-    required this.weeks,
-    required this.imageUrl,
-    this.onTap,
-  }) : super(key: key);
+class LessonsWidget extends StatelessWidget {
+  const LessonsWidget(
+      {super.key, required this.title, required this.imageUrl, this.onTap});
+
   final String title;
-  final int weeks;
   final String imageUrl;
   final void Function()? onTap;
 
@@ -23,7 +18,7 @@ class CourseWidget extends StatelessWidget {
         elevation: 5,
         child: Container(
           margin: const EdgeInsets.only(left: 5),
-          width: MediaQuery.of(context).size.width / 7,
+          width: MediaQuery.of(context).size.width / 10,
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
               // color: Color(0xffefefef),
@@ -37,11 +32,25 @@ class CourseWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10)),
-                child: Image.network(
-                  '$baseUrl/uploads/$imageUrl',
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  fit: BoxFit.fill,
+                child: Stack(
+                  children: [
+                    Image.network(
+                      '$baseUrl/uploads/$imageUrl',
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      fit: BoxFit.fill,
+                    ),
+                    Center(
+                      child: CircleAvatar(
+                        radius: MediaQuery.sizeOf(context).width / 65,
+                        backgroundColor: Color.fromRGBO(255, 255, 255, 0.9),
+                        child: Icon(
+                          Icons.play_arrow,
+                          // color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               )),
               // titles
@@ -61,23 +70,18 @@ class CourseWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          // second text
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.access_time,
-                                color: cyan,
-                              ),
-                              Text(
-                                "\t$weeks هفته",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 15 *
-                                      MediaQuery.of(context).textScaleFactor,
-                                ),
-                              ),
-                            ],
+                          // edit button
+                          Container(
+                            width: MediaQuery.sizeOf(context).width,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: darkBlue,
+                                borderRadius: BorderRadius.circular(6)),
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              "ویرایش",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ],
                       ))),
