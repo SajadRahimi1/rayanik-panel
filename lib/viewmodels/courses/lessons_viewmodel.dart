@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:rayanik_panel/models/course_model.dart';
@@ -15,6 +14,7 @@ class LessonsViewmodel extends GetxController with StateMixin {
   Rx<Uint8List> imageBytes = Uint8List(0).obs;
 
   List<List<Lessons>> lessonsList = [];
+
 
   @override
   void onInit() {
@@ -52,4 +52,6 @@ class LessonsViewmodel extends GetxController with StateMixin {
           [];
     }
   }
+
+  
 }

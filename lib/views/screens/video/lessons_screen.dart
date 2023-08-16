@@ -5,7 +5,7 @@ import 'package:rayanik_panel/core/constants/urls.dart';
 import 'package:rayanik_panel/models/course_model.dart';
 import 'package:rayanik_panel/viewmodels/courses/lessons_viewmodel.dart';
 import 'package:rayanik_panel/views/screens/screens_template.dart';
-import 'package:rayanik_panel/views/widgets/course_widget.dart';
+import 'package:rayanik_panel/views/widgets/lesson_dialog.dart';
 import 'package:rayanik_panel/views/widgets/lessons_widget.dart';
 import 'package:rayanik_panel/views/widgets/title_button.dart';
 
@@ -16,7 +16,7 @@ class LessonsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LessonsViewmodel(model));
-
+  
     return ScreensTemplate(
       selectedItem: 0,
       title: model.title ?? "",
@@ -232,6 +232,22 @@ class LessonsScreen extends StatelessWidget {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10),
                                             child: LessonsWidget(
+                                                onTap: () => showDialog(
+                                                      context: context,
+                                                      builder: (context) => LessonDialog(
+                                                          videoUrl: controller
+                                                                  .lessonsList[
+                                                                      index][
+                                                                      lessonIndex]
+                                                                  .videoUrl ??
+                                                              "",
+                                                          description: controller
+                                                                  .lessonsList[
+                                                                      index][
+                                                                      lessonIndex]
+                                                                  .description ??
+                                                              ""),
+                                                    ),
                                                 title: controller
                                                         .lessonsList[index]
                                                             [lessonIndex]
