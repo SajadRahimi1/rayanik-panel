@@ -1,14 +1,19 @@
 import 'dart:typed_data';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
+import 'package:rayanik_panel/core/services/message_service.dart';
 import 'package:rayanik_panel/core/services/picker_service.dart'
     as pricker_service;
+import 'package:rayanik_panel/models/create_lesson_model.dart';
+import 'package:rayanik_panel/core/services/lesson_service.dart' as service;
 
 class CreateLessonDialog extends StatelessWidget {
-  const CreateLessonDialog({super.key, this.maxWeeksLengh = 1});
+  const CreateLessonDialog(
+      {super.key, this.maxWeeksLengh = 1, required this.courseId});
   final int maxWeeksLengh;
+  final String courseId;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,9 @@ class CreateLessonDialog extends StatelessWidget {
     Rx<Uint8List> image = Uint8List(0).obs;
     RxString videoName = "".obs, imageName = "".obs;
     RxInt weekNumber = 1.obs;
+    RxBool isUploading = false.obs;
+
+    CreateLessonModel model = CreateLessonModel();
 
     return Dialog(
       backgroundColor: Colors.white,
@@ -34,8 +42,7 @@ class CreateLessonDialog extends StatelessWidget {
                   width: Get.width / 6,
                   child: TextFormField(
                     decoration: const InputDecoration(labelText: "عنوان"),
-                    // onChanged: (value) =>
-                    //     controller.createCourseModel.title = value,
+                    onChanged: (value) => model.title = value,
                   ),
                 ),
                 SizedBox(
@@ -54,8 +61,7 @@ class CreateLessonDialog extends StatelessWidget {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    // onChanged: (value) =>
-                    //     controller.createCourseModel.title = value,
+                    onChanged: (value) => model.description = value,
                   ),
                 ),
                 SizedBox(
@@ -115,7 +121,7 @@ class CreateLessonDialog extends StatelessWidget {
                     ),
                     Expanded(
                         child: Obx(() => Text(
-                              "\t\t" + videoName.value,
+                              "\t\t${videoName.value}",
                               overflow: TextOverflow.ellipsis,
                             )))
                   ],
@@ -169,7 +175,34 @@ class CreateLessonDialog extends StatelessWidget {
 
                 // upload button
                 InkWell(
-                  // onTap: controller.addCourse,
+                  onTap: () async {
+                    model.videoName = videoName.value;
+                    model.imageName = imageName.value;
+                    model.image = image.value;
+                    model.video = video;
+                    model.weekNumber = weekNumber.value;
+                    model.courseId = courseId;
+                    isUploading.value = true;
+                    try {
+                      final request = await service.addCourse(model: model);
+                      if (request.statusCode == 200) {
+                        isUploading.value = false;
+                        Navigator.pop(context);
+                        showMessage(
+                            context: context,
+                            message: "درس با موفقیت اضافه شد",
+                            type: MessageType.success);
+                      } else {
+                        isUploading.value = false;
+                        showMessage(
+                            context: context,
+                            message: request.data,
+                            type: MessageType.error);
+                      }
+                    } on DioException catch (e) {
+                      print(e.response?.data);
+                    }
+                  },
                   child: Container(
                     width: Get.width,
                     height: Get.height / 18,
@@ -177,10 +210,25 @@ class CreateLessonDialog extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: darkBlue),
-                    child: const Text(
-                      "ثبت درس جدید",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
+                    child: Obx(() => isUploading.value
+                        ? Row(
+                            children: [
+                              Text(
+                                "در حال آپلود...\t\t",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16 *
+                                        MediaQuery.of(context).textScaleFactor),
+                              ),
+                            ],
+                          )
+                        : Text(
+                            "ثبت درس جدید",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18 *
+                                    MediaQuery.of(context).textScaleFactor),
+                          )),
                   ),
                 ),
               ]),

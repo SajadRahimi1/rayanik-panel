@@ -25,8 +25,11 @@ class LessonsScreen extends StatelessWidget {
         children: [
           InkWell(
               onTap: () => showDialog(
-                  context: context, builder: (context) => CreateLessonDialog()),
-              child: TitleButton(text: "درس جدید")),
+                  context: context,
+                  builder: (context) => CreateLessonDialog(
+                        courseId: model.id ?? "",
+                      )),
+              child: const TitleButton(text: "درس جدید")),
           InkWell(
               onTap: () => showDialog(
                   context: context,
@@ -236,22 +239,24 @@ class LessonsScreen extends StatelessWidget {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 10),
                                             child: LessonsWidget(
-                                                onTap: () => showDialog(
-                                                      context: context,
-                                                      builder: (context) => LessonDialog(
-                                                          videoUrl: controller
-                                                                  .lessonsList[
-                                                                      index][
-                                                                      lessonIndex]
-                                                                  .videoUrl ??
-                                                              "",
-                                                          description: controller
-                                                                  .lessonsList[
-                                                                      index][
-                                                                      lessonIndex]
-                                                                  .description ??
-                                                              ""),
-                                                    ),
+                                                onTap: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) => LessonDialog(
+                                                        videoUrl: controller
+                                                                .lessonsList[
+                                                                    index][
+                                                                    lessonIndex]
+                                                                .videoUrl ??
+                                                            "",
+                                                        description: controller
+                                                                .lessonsList[
+                                                                    index][
+                                                                    lessonIndex]
+                                                                .description ??
+                                                            ""),
+                                                  );
+                                                },
                                                 title: controller
                                                         .lessonsList[index]
                                                             [lessonIndex]

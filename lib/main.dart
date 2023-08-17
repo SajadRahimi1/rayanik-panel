@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:rayanik_panel/views/screens/books/books_home_screen.dart';
 import 'package:rayanik_panel/views/screens/main_screen.dart';
 import 'package:rayanik_panel/views/screens/users/users_screen.dart';
 import 'package:rayanik_panel/views/screens/video/video_screen.dart';
@@ -24,7 +25,8 @@ class MainApp extends StatelessWidget {
       routes: {
         '/': (context) => const MainScreen(),
         '/courses': (context) => const VideoScreen(),
-        '/users': (context) => const UsersScreen()
+        '/users': (context) => const UsersScreen(),
+        '/books':(context)=>const BooksHomeScreen()
       },
       builder: (context, child) => Directionality(
           textDirection: TextDirection.rtl, child: child ?? const SizedBox()),

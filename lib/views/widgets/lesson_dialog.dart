@@ -54,7 +54,8 @@ class _LessonDialogState extends State<LessonDialog> {
         child: SizedBox(
           width: MediaQuery.sizeOf(context).width / 3.5,
           height: MediaQuery.sizeOf(context).height / 1.1,
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
               width: MediaQuery.sizeOf(context).width / 3.4,
               height: MediaQuery.sizeOf(context).height / 3,
@@ -66,7 +67,11 @@ class _LessonDialogState extends State<LessonDialog> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: SingleChildScrollView(
-                  child: Text(widget.description),
+                  child: Text(
+                    widget.description,
+                    style: TextStyle(
+                        fontSize: 17 * MediaQuery.of(context).textScaleFactor),
+                  ),
                 ),
               ),
             )

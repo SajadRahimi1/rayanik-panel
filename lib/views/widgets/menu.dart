@@ -29,9 +29,7 @@ class Menu extends StatelessWidget {
                     onTap: () => selectedItem == -1
                         ? {}
                         : Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            '/',
-                            (route) => false),
+                            context, '/', (route) => false),
                     child: Text(
                       "پنل ادمین رایانیک",
                       style: TextStyle(
@@ -51,9 +49,7 @@ class Menu extends StatelessWidget {
                             onTap: () => selectedItem == 0
                                 ? {}
                                 : Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    '/courses',
-                                    (route) => false),
+                                    context, '/courses', (route) => false),
                             title: Text("آموزش ویدیویی",
                                 style: TextStyle(
                                     fontSize: 20 *
@@ -98,6 +94,10 @@ class Menu extends StatelessWidget {
                           height: Get.height / 35,
                         ),
                         ListTile(
+                            onTap: () => selectedItem == 4
+                                ? {}
+                                : Navigator.pushNamedAndRemoveUntil(
+                                    context, '/books', (route) => false),
                             title: Text("مدیریت کتاب ها",
                                 style: TextStyle(
                                     fontSize: 20 *
