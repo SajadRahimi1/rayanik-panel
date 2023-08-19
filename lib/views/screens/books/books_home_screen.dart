@@ -65,12 +65,19 @@ class BooksHomeScreen extends StatelessWidget {
                         childAspectRatio: 0.8,
                         crossAxisCount: Get.width ~/ 300),
                     childrenDelegate: SliverChildBuilderDelegate(
-                        (context, index) => BookWidget(
-                            imageUrl:
-                                controller.booksList[index].imageUrl ?? "",
-                            title: controller.booksList[index].title ?? "",
-                            author: controller.booksList[index].author ?? ""),
-                        childCount: controller.booksList.length))))
+                      (context, index) => BookWidget(
+                        imageUrl: controller.booksList[index].imageUrl ?? "",
+                        title: controller.booksList[index].title ?? "",
+                        author: controller.booksList[index].author ?? "",
+                        onEditTap: () => showDialog(
+                            context: context,
+                            builder: (context) => AddBookDialog(
+                                  onUploadTap: (model) {},
+                                  createBookModel: controller.booksList[index],
+                                )),
+                      ),
+                      childCount: controller.booksList.length,
+                    ))))
           ],
         ),
       ),

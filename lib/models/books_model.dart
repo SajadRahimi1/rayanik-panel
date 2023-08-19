@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:rayanik_panel/core/constants/urls.dart';
+import 'package:rayanik_panel/models/create_book_model.dart';
 
 class BooksModel {
   String? title;
@@ -28,26 +27,35 @@ class BooksModel {
     title = json["title"];
     author = json["author"];
     publisher = json["publisher"];
-    downloadUrl = json["downloadUrl"];
+    downloadUrl = json["downloadUrl"] == null
+        ? null
+        : '$baseUrl/uploads/${json["downloadUrl"]}';
     description = json["description"];
-    imageUrl =
-        json["imageUrl"] == null ? null : '$baseUrl/uploads/${json["imageUrl"]}';
+    imageUrl = json["imageUrl"] == null
+        ? null
+        : '$baseUrl/uploads/${json["imageUrl"]}';
     id = json["Id"];
     createdAt = json["CreatedAt"];
     updatedAt = json["UpdatedAt"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["title"] = title;
-    _data["author"] = author;
-    _data["publisher"] = publisher;
-    _data["downloadUrl"] = downloadUrl;
-    _data["description"] = description;
-    _data["imageUrl"] = imageUrl;
-    _data["Id"] = id;
-    _data["CreatedAt"] = createdAt;
-    _data["UpdatedAt"] = updatedAt;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["title"] = title;
+    data["author"] = author;
+    data["publisher"] = publisher;
+    data["downloadUrl"] = downloadUrl;
+    data["description"] = description;
+    data["imageUrl"] = imageUrl;
+    data["Id"] = id;
+    data["CreatedAt"] = createdAt;
+    data["UpdatedAt"] = updatedAt;
+    return data;
   }
+
+  CreateBookModel toCreateBookModel() => CreateBookModel()
+    ..author = author
+    ..description = description
+    ..publisher = publisher
+    ..title = title;
 }
