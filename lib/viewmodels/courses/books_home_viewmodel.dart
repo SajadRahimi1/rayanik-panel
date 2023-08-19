@@ -23,6 +23,7 @@ class BookHomeViewModel extends GetxController with StateMixin {
   }
 
   Future<void> getData() async {
+    change(null, status: RxStatus.loading());
     final request = await service.getAllBooks();
     if (request.statusCode == 200) {
       basebooksList = List<BooksModel>.from(
@@ -53,11 +54,13 @@ class BookHomeViewModel extends GetxController with StateMixin {
     try {
       final request = await service.createBook(bookModel);
       if (request.statusCode == 200) {
+        print(request.data);
         Navigator.pop(context);
         showMessage(
             context: context,
             message: "کتاب با موفقیت اضافه شد",
             type: MessageType.success);
+        await getData();
       } else {
         networkErrorMessage(context);
       }

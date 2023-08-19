@@ -17,7 +17,7 @@ Future<Response<dynamic>> createBook(CreateBookModel bookModel) async {
   var formData = FormData.fromMap(bookModel.toJson());
 
   return await dio.post(
-    createCourseUrl,
+    createBooksUrl,
     data: formData,
   );
 }

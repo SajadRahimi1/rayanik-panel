@@ -33,8 +33,7 @@ class AddBookDialog extends StatelessWidget {
                   width: MediaQuery.sizeOf(context).width / 6,
                   child: TextFormField(
                     decoration: const InputDecoration(labelText: "عنوان"),
-                    // onChanged: (value) => controller
-                    //     .createCourseModel.title = value,
+                    onChanged: (value) => bookModel.title = value,
                   ),
                 ),
                 SizedBox(
@@ -45,8 +44,7 @@ class AddBookDialog extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width / 6,
                   child: TextFormField(
-                    // onChanged: (value) => controller
-                    //     .createCourseModel.price = value,
+                    onChanged: (value) => bookModel.author = value,
                     decoration: const InputDecoration(labelText: "نویسنده"),
                   ),
                 ),
@@ -58,8 +56,7 @@ class AddBookDialog extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width / 6,
                   child: TextFormField(
-                    // onChanged: (value) => controller
-                    //     .createCourseModel.price = value,
+                    onChanged: (value) => bookModel.publisher = value,
                     decoration: const InputDecoration(labelText: "انتشارات"),
                   ),
                 ),
@@ -80,7 +77,7 @@ class AddBookDialog extends StatelessWidget {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    // onChanged: (value) => model.description = value,
+                    onChanged: (value) => bookModel.description = value,
                   ),
                 ),
                 SizedBox(
@@ -91,7 +88,8 @@ class AddBookDialog extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () async {
-                        var pdfFile = await pickFile(typeIndex: 3);
+                        var pdfFile = await pickFile(
+                            typeIndex: 5, allowedExtensions: ['pdf']);
                         if (pdfFile != null) {
                           bookModel.pdfFileName = pdfFile.files.single.name;
                           pdfFileName.value = pdfFile.files.single.name;
@@ -105,7 +103,7 @@ class AddBookDialog extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             color: darkBlue),
                         child: const Text(
-                          "انتخاب ویدیو",
+                          "انتخاب فایل pdf",
                           style: TextStyle(
                             color: Colors.white,
                           ),
