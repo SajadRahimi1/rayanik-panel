@@ -123,7 +123,7 @@ class LessonsScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       const Text(
-                                        "تعداد هفته :",
+                                        "هفته :",
                                         style: TextStyle(
                                             fontSize: 17, color: Colors.black),
                                       ),

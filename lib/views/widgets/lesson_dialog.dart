@@ -42,7 +42,6 @@ class _LessonDialogState extends State<LessonDialog> {
     // TODO: implement dispose
     super.dispose();
     print("dispose");
-    videoPlayerController.dispose();
     customVideoPlayerController.dispose();
   }
 

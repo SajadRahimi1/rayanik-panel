@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayanik_panel/viewmodels/courses/books_home_viewmodel.dart';
 import 'package:rayanik_panel/views/screens/screens_template.dart';
+import 'package:rayanik_panel/views/widgets/add_book_dialog.dart';
 import 'package:rayanik_panel/views/widgets/book_widget.dart';
+import 'package:rayanik_panel/views/widgets/title_button.dart';
 
 class BooksHomeScreen extends StatelessWidget {
   const BooksHomeScreen({super.key});
@@ -14,6 +16,13 @@ class BooksHomeScreen extends StatelessWidget {
     return ScreensTemplate(
       selectedItem: 4,
       title: "مدیریت کتاب ها",
+      titleWidget: InkWell(
+        onTap: () => showDialog(
+            context: context,
+            builder: (context) => AddBookDialog(
+                onUploadTap: (bookModel) => controller.createBook(bookModel))),
+        child: const TitleButton(text: "کتاب جدید"),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
@@ -26,7 +35,7 @@ class BooksHomeScreen extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 26 * MediaQuery.of(context).textScaleFactor),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 SizedBox(

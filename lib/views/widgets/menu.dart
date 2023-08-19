@@ -102,7 +102,9 @@ class Menu extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 20 *
                                         MediaQuery.of(context).textScaleFactor,
-                                    color: Colors.white))),
+                                    color: selectedItem == 4
+                                        ? cyan
+                                        : Colors.white))),
                         SizedBox(
                           height: Get.height / 35,
                         ),
