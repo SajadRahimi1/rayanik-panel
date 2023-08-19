@@ -6,6 +6,6 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreensTemplate(selectedItem: 1, title: "مدیریت کاربران");
+    return const ScreensTemplate(selectedItem: 1, title: "مدیریت کاربران");
   }
 }

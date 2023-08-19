@@ -6,6 +6,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Menu(selectedItem: -1);
+    return const Menu(selectedItem: -1);
   }
 }

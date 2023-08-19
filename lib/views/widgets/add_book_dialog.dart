@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayanik_panel/core/constants/colors.dart';
@@ -17,7 +16,8 @@ class AddBookDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     Rx<Uint8List> image = Uint8List(0).obs, pdf = Uint8List(0).obs;
     RxString pdfFileName = "".obs;
-    final CreateBookModel bookModel = createBookModel?.toCreateBookModel()?? CreateBookModel();
+    final CreateBookModel bookModel =
+        createBookModel?.toCreateBookModel() ?? CreateBookModel();
 
     return Dialog(
       backgroundColor: Colors.white,
@@ -37,7 +37,8 @@ class AddBookDialog extends StatelessWidget {
                   child: TextFormField(
                     decoration: const InputDecoration(labelText: "عنوان"),
                     onChanged: (value) => bookModel.title = value,
-                    controller: TextEditingController(text: createBookModel?.title),
+                    controller:
+                        TextEditingController(text: createBookModel?.title),
                   ),
                 ),
                 SizedBox(
@@ -50,7 +51,8 @@ class AddBookDialog extends StatelessWidget {
                   child: TextFormField(
                     onChanged: (value) => bookModel.author = value,
                     decoration: const InputDecoration(labelText: "نویسنده"),
-                    controller: TextEditingController(text: createBookModel?.author),
+                    controller:
+                        TextEditingController(text: createBookModel?.author),
                   ),
                 ),
                 SizedBox(
@@ -63,7 +65,8 @@ class AddBookDialog extends StatelessWidget {
                   child: TextFormField(
                     onChanged: (value) => bookModel.publisher = value,
                     decoration: const InputDecoration(labelText: "انتشارات"),
-                    controller: TextEditingController(text: createBookModel?.publisher),
+                    controller:
+                        TextEditingController(text: createBookModel?.publisher),
                   ),
                 ),
                 SizedBox(
@@ -75,7 +78,8 @@ class AddBookDialog extends StatelessWidget {
                   height: MediaQuery.sizeOf(context).height / 10,
                   child: TextFormField(
                     maxLines: 4,
-                    controller: TextEditingController(text: createBookModel?.description),
+                    controller: TextEditingController(
+                        text: createBookModel?.description),
                     decoration: InputDecoration(
                         labelText: "توضیحات",
                         focusedBorder: OutlineInputBorder(
@@ -159,7 +163,9 @@ class AddBookDialog extends StatelessWidget {
                   dimension: MediaQuery.sizeOf(context).width / 9,
                   child: Center(
                     child: Obx(() => image.value.isEmpty
-                        ? createBookModel==null?const SizedBox():Image.network(createBookModel?.imageUrl??"")
+                        ? createBookModel == null
+                            ? const SizedBox()
+                            : Image.network(createBookModel?.imageUrl ?? "")
                         : Image.memory(
                             image.value,
                           )),
@@ -183,9 +189,9 @@ class AddBookDialog extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: darkBlue),
-                    child:  Text(
-                     createBookModel==null? "ثبت دوره جدید":"ثبت ویرایش",
-                      style:const  TextStyle(color: Colors.white, fontSize: 18),
+                    child: Text(
+                      createBookModel == null ? "ثبت دوره جدید" : "ثبت ویرایش",
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
                 ),

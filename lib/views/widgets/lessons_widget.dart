@@ -43,8 +43,8 @@ class LessonsWidget extends StatelessWidget {
                     Center(
                       child: CircleAvatar(
                         radius: MediaQuery.sizeOf(context).width / 65,
-                        backgroundColor: Color.fromRGBO(255, 255, 255, 0.9),
-                        child: Icon(
+                        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.9),
+                        child: const Icon(
                           Icons.play_arrow,
                           // color: Colors.white,
                         ),
@@ -77,8 +77,8 @@ class LessonsWidget extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: darkBlue,
                                 borderRadius: BorderRadius.circular(6)),
-                            padding: EdgeInsets.all(5),
-                            child: Text(
+                            padding: const EdgeInsets.all(5),
+                            child: const Text(
                               "ویرایش",
                               style: TextStyle(color: Colors.white),
                             ),

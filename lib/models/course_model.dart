@@ -25,19 +25,19 @@ class CourseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["title"] = title;
-    _data["category"] = category;
-    _data["price"] = price;
-    _data["weeksCount"] = weeksCount;
-    _data["imageUrl"] = imageUrl;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["title"] = title;
+    data["category"] = category;
+    data["price"] = price;
+    data["weeksCount"] = weeksCount;
+    data["imageUrl"] = imageUrl;
     if(lessons != null) {
-      _data["lessons"] = lessons?.map((e) => e.toJson()).toList();
+      data["lessons"] = lessons?.map((e) => e.toJson()).toList();
     }
-    _data["Id"] = id;
-    _data["CreatedAt"] = createdAt;
-    _data["UpdatedAt"] = updatedAt;
-    return _data;
+    data["Id"] = id;
+    data["CreatedAt"] = createdAt;
+    data["UpdatedAt"] = updatedAt;
+    return data;
   }
 }
 
@@ -68,16 +68,16 @@ class Lessons {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["courseId"] = courseId;
-    _data["title"] = title;
-    _data["description"] = description;
-    _data["imageUrl"] = imageUrl;
-    _data["videoUrl"] = videoUrl;
-    _data["weekNumber"] = weekNumber;
-    _data["Id"] = id;
-    _data["CreatedAt"] = createdAt;
-    _data["UpdatedAt"] = updatedAt;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["courseId"] = courseId;
+    data["title"] = title;
+    data["description"] = description;
+    data["imageUrl"] = imageUrl;
+    data["videoUrl"] = videoUrl;
+    data["weekNumber"] = weekNumber;
+    data["Id"] = id;
+    data["CreatedAt"] = createdAt;
+    data["UpdatedAt"] = updatedAt;
+    return data;
   }
 }
