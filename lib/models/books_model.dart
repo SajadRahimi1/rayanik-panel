@@ -55,6 +55,7 @@ class BooksModel {
 
   CreateBookModel toCreateBookModel() => CreateBookModel()
     ..author = author
+    ..id = id
     ..description = description
     ..publisher = publisher
     ..title = title;

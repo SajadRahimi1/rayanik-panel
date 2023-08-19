@@ -72,7 +72,8 @@ class BooksHomeScreen extends StatelessWidget {
                         onEditTap: () => showDialog(
                             context: context,
                             builder: (context) => AddBookDialog(
-                                  onUploadTap: (model) {},
+                                  onUploadTap: (model) =>
+                                      controller.editBook(model),
                                   createBookModel: controller.booksList[index],
                                 )),
                       ),

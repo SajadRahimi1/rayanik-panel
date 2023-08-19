@@ -5,3 +5,4 @@ const String createLessonUrl = '$baseUrl/Course/add-lesson';
 
 const String getBooksUrl = '$baseUrl/Book';
 const String createBooksUrl = '$baseUrl/Book/create';
+const String editBooksUrl = '$baseUrl/Book/edit';

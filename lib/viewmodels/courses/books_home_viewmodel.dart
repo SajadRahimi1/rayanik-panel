@@ -71,4 +71,26 @@ class BookHomeViewModel extends GetxController with StateMixin {
           type: MessageType.error);
     }
   }
+
+  Future<void> editBook(CreateBookModel bookModel) async {
+    try {
+      final request = await service.editBook(bookModel);
+      if (request.statusCode == 200) {
+        print(request.data);
+        Navigator.pop(context);
+        showMessage(
+            context: context,
+            message: "کتاب با موفقیت ویرایش شد",
+            type: MessageType.success);
+        await getData();
+      } else {
+        networkErrorMessage(context);
+      }
+    } on DioException catch (e) {
+      showMessage(
+          context: context,
+          message: e.response?.data ?? "",
+          type: MessageType.error);
+    }
+  }
 }

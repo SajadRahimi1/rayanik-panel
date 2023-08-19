@@ -21,3 +21,24 @@ Future<Response<dynamic>> createBook(CreateBookModel bookModel) async {
     data: formData,
   );
 }
+
+Future<Response<dynamic>> editBook(CreateBookModel bookModel) async {
+  final Dio dio =
+      Dio(BaseOptions(receiveTimeout: const Duration(seconds: 12), headers: {
+    "Access-Control-Allow-Origin": "*",
+    'Accept': '*/*',
+  }));
+  var formData = FormData.fromMap(bookModel.toJson());
+  try {
+    return await dio.post(
+      editBooksUrl,
+      data: formData,
+    );
+  } on DioException catch (e) {
+    print(e.response?.data);
+  }
+  return await dio.post(
+    editBooksUrl,
+    data: formData,
+  );
+}
